@@ -1,0 +1,43 @@
+project_id = "whqnnbgiwbjaopelvjwm"
+
+[functions.generate-roadmap]
+verify_jwt = false
+
+[functions.generate-flashcards]
+verify_jwt = false
+
+[functions.generate-quiz]
+verify_jwt = false
+
+[functions.generate-lesson]
+verify_jwt = false
+
+[functions.analyze-document]
+verify_jwt = false
+
+[functions.generate-document-flashcards]
+verify_jwt = false
+
+[functions.youtube-transcript]
+verify_jwt = false
+
+[functions.youtube-flashcards]
+verify_jwt = false
+
+[functions.generate-mindmap]
+verify_jwt = false
+
+[functions.youtube-quiz]
+verify_jwt = false
+
+[functions.generate-document-quiz]
+verify_jwt = false
+
+[functions.generate-extra-materials]
+verify_jwt = false
+
+[functions.generate-suggestions]
+verify_jwt = false
+
+[functions.validate-signup-password]
+verify_jwt = false
