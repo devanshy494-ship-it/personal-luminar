@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
+import * as pdfjsLib from 'pdfjs-dist';
 import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { BookOpen, Brain, ArrowLeft, Loader2, Sparkles, Plus, Upload, Link, FileText, Youtube, X, Check, AlertCircle, GitBranch, SlidersHorizontal, ChevronDown, RefreshCw } from 'lucide-react';
@@ -41,20 +42,12 @@ async function extractTextFromFile(file: File): Promise<string> {
   }
 
   if (ext === 'pdf') {
-    const pdfjsLib = (window as any).pdfjsLib;
-    if (!pdfjsLib) {
-      await new Promise<void>((resolve, reject) => {
-        const script = document.createElement('script');
-        script.src = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js';
-        script.onload = () => resolve();
-        script.onerror = () => reject(new Error('Failed to load PDF library'));
-        document.head.appendChild(script);
-      });
-    }
-    const lib = (window as any).pdfjsLib;
-    lib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+    pdfjsLib.GlobalWorkerOptions.workerSrc = new URL(
+      'pdfjs-dist/build/pdf.worker.min.mjs',
+      import.meta.url,
+    ).toString();
     const arrayBuffer = await file.arrayBuffer();
-    const pdf = await lib.getDocument({ data: new Uint8Array(arrayBuffer) }).promise;
+    const pdf = await pdfjsLib.getDocument({ data: new Uint8Array(arrayBuffer) }).promise;
     let text = '';
     for (let i = 1; i <= pdf.numPages; i++) {
       const page = await pdf.getPage(i);

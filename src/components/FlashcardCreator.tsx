@@ -286,9 +286,22 @@ export default function FlashcardCreator() {
                   </p>
                 </button>
                 {fileName && extractedContent && (
-                  <p className="text-sm text-success mt-2 flex items-center gap-1">
-                    <Check className="h-4 w-4" /> File loaded: {fileName} ({Math.round(extractedContent.length / 1000)}k chars)
-                  </p>
+                  <div className="flex items-center justify-between mt-2">
+                    <p className="text-sm text-success flex items-center gap-1">
+                      <Check className="h-4 w-4" /> File loaded: {fileName} ({Math.round(extractedContent.length / 1000)}k chars)
+                    </p>
+                    <button
+                      onClick={() => {
+                        setFileName('');
+                        setExtractedContent('');
+                        setError('');
+                        if (fileInputRef.current) fileInputRef.current.value = '';
+                      }}
+                      className="text-sm text-red-400 hover:text-red-300 flex items-center gap-1 ml-4"
+                    >
+                      <X className="h-4 w-4" /> Remove
+                    </button>
+                  </div>
                 )}
               </div>
             )}
