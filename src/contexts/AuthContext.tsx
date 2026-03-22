@@ -1,7 +1,6 @@
 import { createContext, useContext, useEffect, useState, ReactNode } from 'react';
 import { Session, User } from '@supabase/supabase-js';
 import { supabase } from '@/lib/supabase';
-import { lovable } from '@/integrations/lovable/index';
 import { guestStorage } from '@/lib/guestStorage';
 
 const GUEST_USER_KEY = 'luminar_guest_user';
@@ -82,12 +81,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const signInWithGoogle = async () => {
-    const result = await lovable.auth.signInWithOAuth("google", {
-      redirect_uri: window.location.origin,
+    const { error } = await supabase.auth.signInWithOAuth({
+      provider: 'google',
+      options: {
+        redirectTo: window.location.origin,
+      },
     });
-    if (result.error) {
-      return { error: result.error as Error };
-    }
+    if (error) return { error: error as Error };
     return { error: null };
   };
 
