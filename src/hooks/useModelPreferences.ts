@@ -6,13 +6,13 @@ const DEFAULT_MODELS = {
   roadmap: 'gemini-2.5-flash',
   mindmap: 'gemini-2.5-flash',
   document_analysis: 'gemini-2.5-flash',
-  lesson: 'gemini-3.1-flash-lite',
-  flashcard: 'gemini-3.1-flash-lite',
-  quiz: 'gemini-3.1-flash-lite',
-  mindmap_expansion: 'gemini-3.1-flash-lite',
-  extra_materials: 'gemini-3.1-flash-lite',
-  youtube_transcript: 'gemini-3.1-flash-lite',
-  suggestions: 'gemini-3.1-flash-lite',
+  lesson: 'gemini-3.1-flash-lite-preview',
+  flashcard: 'gemini-3.1-flash-lite-preview',
+  quiz: 'gemini-3.1-flash-lite-preview',
+  mindmap_expansion: 'gemini-3.1-flash-lite-preview',
+  extra_materials: 'gemini-3.1-flash-lite-preview',
+  youtube_transcript: 'gemini-3.1-flash-lite-preview',
+  suggestions: 'gemini-3.1-flash-lite-preview',
 };
 
 export function useModelPreferences() {
