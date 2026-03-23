@@ -30,7 +30,7 @@ serve(async (req) => {
       });
     }
 
-    const { topicId, stepIndex, stepTitle } = await req.json();
+    const { topicId, stepIndex, stepTitle, model } = await req.json();
     if (!topicId) {
       return new Response(JSON.stringify({ error: "topicId is required" }), {
         status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" },
@@ -50,7 +50,7 @@ serve(async (req) => {
     const subject = stepTitle ? `"${stepTitle}" (part of "${topic.title}")` : `"${topic.title}"`;
 
     const aiResponse = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/${body.model || 'gemini-3.1-flash-lite-preview'}:generateContent?key=${GEMINI_API_KEY}`,
+      `https://generativelanguage.googleapis.com/v1beta/models/${model || 'gemini-3.1-flash-lite-preview'}:generateContent?key=${GEMINI_API_KEY}`,
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },

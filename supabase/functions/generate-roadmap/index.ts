@@ -116,7 +116,7 @@ serve(async (req) => {
       });
     }
 
-    const { topic, sourceContent, strictMode, additionalInfo } = await req.json();
+    const { topic, sourceContent, strictMode, additionalInfo, model } = await req.json();
     if (!topic || typeof topic !== "string" || topic.trim().length === 0 || topic.length > 200) {
       return new Response(JSON.stringify({ error: "Invalid topic" }), {
         status: 400,
@@ -163,7 +163,7 @@ Make the roadmap progressive — each step builds on the previous one.${strictIn
       : `Create a learning roadmap for: "${topic.trim()}". Cover fundamentals to advanced concepts.`;
 
     const aiResponse = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/${body.model || 'gemini-2.5-flash'}:generateContent?key=${GEMINI_API_KEY}`,
+      `https://generativelanguage.googleapis.com/v1beta/models/${model || 'gemini-2.5-flash'}:generateContent?key=${GEMINI_API_KEY}`,
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },

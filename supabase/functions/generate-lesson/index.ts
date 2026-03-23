@@ -17,7 +17,7 @@ serve(async (req) => {
       });
     }
 
-    const { topicTitle, stepTitle, stepDescription, minWords, maxWords } = await req.json();
+    const { topicTitle, stepTitle, stepDescription, minWords, maxWords, model } = await req.json();
     if (!topicTitle || !stepTitle) {
       return new Response(JSON.stringify({ error: "topicTitle and stepTitle are required" }), {
         status: 400,
@@ -41,7 +41,7 @@ Step description: "${stepDescription || ''}"
 Create a detailed lesson for this step.`;
 
     const aiResponse = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/${body.model || 'gemini-3.1-flash-lite-preview'}:generateContent?key=${GEMINI_API_KEY}`,
+      `https://generativelanguage.googleapis.com/v1beta/models/${model || 'gemini-3.1-flash-lite-preview'}:generateContent?key=${GEMINI_API_KEY}`,
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },

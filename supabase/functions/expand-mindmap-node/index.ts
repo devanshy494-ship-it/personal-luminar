@@ -9,7 +9,7 @@ serve(async (req) => {
   if (req.method === "OPTIONS") return new Response(null, { headers: corsHeaders });
 
   try {
-    const { nodeLabel, parentContext, rootTopic } = await req.json();
+    const { nodeLabel, parentContext, rootTopic, model } = await req.json();
 
     if (!nodeLabel || typeof nodeLabel !== "string") {
       return new Response(JSON.stringify({ error: "nodeLabel is required" }), {
@@ -27,7 +27,7 @@ serve(async (req) => {
 Each sub-topic should be a meaningful expansion of the node, providing deeper insight. Keep labels concise (2-6 words) and add brief descriptions.`;
 
     const aiResponse = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/${body.model || 'gemini-3.1-flash-lite-preview'}:generateContent?key=${GEMINI_API_KEY}`,
+      `https://generativelanguage.googleapis.com/v1beta/models/${model || 'gemini-3.1-flash-lite-preview'}:generateContent?key=${GEMINI_API_KEY}`,
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },

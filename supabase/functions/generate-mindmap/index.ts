@@ -28,7 +28,7 @@ serve(async (req) => {
     }
     const userId = claimsData.claims.sub;
 
-    const { topic, sourceContent, strictMode } = await req.json();
+    const { topic, sourceContent, strictMode, model } = await req.json();
 
     if (!topic || typeof topic !== "string" || topic.trim().length === 0) {
       return new Response(JSON.stringify({ error: "Topic is required" }), {
@@ -58,7 +58,7 @@ Make it comprehensive and well-organized. Each node should have a concise label 
       : `Create a detailed mind map for: "${topic.trim()}". Cover all major aspects comprehensively.`;
 
     const aiResponse = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/${body.model || 'gemini-2.5-flash'}:generateContent?key=${GEMINI_API_KEY}`,
+      `https://generativelanguage.googleapis.com/v1beta/models/${model || 'gemini-2.5-flash'}:generateContent?key=${GEMINI_API_KEY}`,
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },

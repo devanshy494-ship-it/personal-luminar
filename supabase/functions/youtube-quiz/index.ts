@@ -21,7 +21,7 @@ serve(async (req) => {
   if (req.method === "OPTIONS") return new Response(null, { headers: corsHeaders });
 
   try {
-    const { url, questionCount = 10 } = await req.json();
+    const { url, questionCount = 10, model } = await req.json();
     if (!url) {
       return new Response(JSON.stringify({ error: "Missing YouTube URL" }), {
         status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" },
@@ -43,7 +43,7 @@ serve(async (req) => {
     const clamped = Math.min(Math.max(questionCount, 5), 30);
 
     const aiResponse = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/${body.model || 'gemini-3.1-flash-lite-preview'}:generateContent?key=${GEMINI_API_KEY}`,
+      `https://generativelanguage.googleapis.com/v1beta/models/${model || 'gemini-3.1-flash-lite-preview'}:generateContent?key=${GEMINI_API_KEY}`,
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
