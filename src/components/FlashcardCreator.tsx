@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { supabase } from '@/lib/supabase';
+import { useModelPreferences } from '@/hooks/useModelPreferences';
 import * as pdfjsLib from 'pdfjs-dist';
 import { toast } from 'sonner';
 import { useNavigate } from 'react-router-dom';
@@ -73,6 +74,7 @@ const pdf = await pdfjsLib.getDocument({ data: new Uint8Array(arrayBuffer) }).pr
 
 export default function FlashcardCreator() {
   const navigate = useNavigate();
+  const modelPrefs = useModelPreferences();
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const [step, setStep] = useState<Step>('input');
@@ -128,7 +130,7 @@ export default function FlashcardCreator() {
         if (isYouTubeUrl(cleanUrl)) {
           setStep('generating');
           const { data, error: fnError } = await supabase.functions.invoke('youtube-flashcards', {
-            body: { url: cleanUrl, cardCount: 20 },
+            body: { url: cleanUrl, cardCount: 20, model: modelPrefs.flashcard },
           });
           if (fnError) throw fnError;
           if (data?.error) throw new Error(data.error);
@@ -152,7 +154,7 @@ export default function FlashcardCreator() {
         body.scope = scopeInstructions.trim();
       }
 
-      const { data, error: fnError } = await supabase.functions.invoke('analyze-document', { body });
+      const { data, error: fnError } = await supabase.functions.invoke('analyze-document', { body: { ...body, model: modelPrefs.document_analysis } });
       if (fnError) throw fnError;
       if (data?.error) throw new Error(data.error);
 
@@ -219,7 +221,7 @@ export default function FlashcardCreator() {
         body.scope = scopeInstructions.trim();
       }
 
-      const { data, error: fnError } = await supabase.functions.invoke('generate-document-flashcards', { body });
+      const { data, error: fnError } = await supabase.functions.invoke('generate-document-flashcards', { body: { ...body, model: modelPrefs.flashcard } });
       if (fnError) throw fnError;
       if (data?.error) throw new Error(data.error);
 
@@ -515,7 +517,7 @@ export default function FlashcardCreator() {
                       setAddingMore(true);
                       try {
                         const { data, error: fnError } = await supabase.functions.invoke('generate-flashcards', {
-                          body: { topicId: result.topicId, cardCount: addMoreCount },
+                          body: { topicId: result.topicId, cardCount: addMoreCount, model: modelPrefs.flashcard },
                         });
                         if (fnError) throw fnError;
                         if (data?.error) throw new Error(data.error);

@@ -86,7 +86,7 @@ Provide 3-5 items per category. Only include resources that are genuinely releva
     const userPrompt = `Topic: "${topicTitle}"\nStep: "${stepTitle}" (Step ${stepIndex !== undefined ? stepIndex + 1 : '?'} of ${totalSteps || '?'})\n${stepDescription ? `Description: "${stepDescription}"` : ""}\n${allSteps ? `\nFull roadmap steps:\n${allSteps.map((s: any) => `${s.index + 1}. ${s.title}: ${s.description}`).join('\n')}` : ''}\n${generationContext ? `\nAdditional learning context: ${JSON.stringify(generationContext)}` : ''}\n\nProvide categorized extra learning materials specifically relevant to this step.`;
 
     const aiResponse = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${GEMINI_API_KEY}`,
+      `https://generativelanguage.googleapis.com/v1beta/models/${body.model || 'gemini-3.1-flash-lite'}:generateContent?key=${GEMINI_API_KEY}`,
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },

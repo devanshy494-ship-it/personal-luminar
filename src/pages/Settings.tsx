@@ -7,10 +7,10 @@ import { ArrowLeft, Save, Settings2 } from 'lucide-react';
 import { toast } from 'sonner';
 
 const GEMINI_MODELS = [
-  { value: 'gemini-2.5-flash-lite', label: 'Gemini 2.5 Flash Lite (Fast)' },
-  { value: 'gemini-2.5-flash', label: 'Gemini 2.5 Flash (Balanced)' },
-  { value: 'gemini-3-flash', label: 'Gemini 3 Flash (Powerful)' },
-  { value: 'gemini-3.1-flash-lite', label: 'Gemini 3.1 Flash Lite (Efficient)' },
+  { value: 'gemini-2.5-flash-lite', label: 'Gemini 2.5 Flash Lite ⚡ (Fastest)' },
+  { value: 'gemini-2.5-flash', label: 'Gemini 2.5 Flash 🔥 (Balanced)' },
+  { value: 'gemini-3-flash', label: 'Gemini 3 Flash 💪 (Powerful)' },
+  { value: 'gemini-3.1-flash-lite', label: 'Gemini 3.1 Flash Lite 🚀 (Newest & Efficient)' },
 ];
 
 const DEFAULT_MODELS = {

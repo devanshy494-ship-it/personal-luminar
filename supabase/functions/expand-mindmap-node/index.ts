@@ -27,7 +27,7 @@ serve(async (req) => {
 Each sub-topic should be a meaningful expansion of the node, providing deeper insight. Keep labels concise (2-6 words) and add brief descriptions.`;
 
     const aiResponse = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${GEMINI_API_KEY}`,
+      `https://generativelanguage.googleapis.com/v1beta/models/${body.model || 'gemini-3.1-flash-lite'}:generateContent?key=${GEMINI_API_KEY}`,
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },

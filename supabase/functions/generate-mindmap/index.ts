@@ -58,7 +58,7 @@ Make it comprehensive and well-organized. Each node should have a concise label 
       : `Create a detailed mind map for: "${topic.trim()}". Cover all major aspects comprehensively.`;
 
     const aiResponse = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${GEMINI_API_KEY}`,
+      `https://generativelanguage.googleapis.com/v1beta/models/${body.model || 'gemini-2.5-flash'}:generateContent?key=${GEMINI_API_KEY}`,
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
