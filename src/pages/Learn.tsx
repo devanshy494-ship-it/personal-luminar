@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
+import { useModelPreferences } from '@/hooks/useModelPreferences';
 import * as pdfjsLib from 'pdfjs-dist';
 import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -88,6 +89,7 @@ export default function Learn() {
   const [loadingSuggestions, setLoadingSuggestions] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const navigate = useNavigate();
+  const modelPrefs = useModelPreferences();
 
   // Track visits and fetch personalized suggestions every 7 visits
   useEffect(() => {
@@ -115,7 +117,7 @@ export default function Learn() {
   const fetchPersonalizedSuggestions = async (currentVisit: number) => {
     setLoadingSuggestions(true);
     try {
-      const { data, error } = await supabase.functions.invoke('generate-suggestions');
+      const { data, error } = await supabase.functions.invoke('generate-suggestions', { body: { model: modelPrefs.suggestions } });
       if (error) throw error;
       if (data?.error) throw new Error(data.error);
 
@@ -188,7 +190,7 @@ export default function Learn() {
         setExtractedContent(`[YouTube video: ${cleanUrl}]`);
       } else {
         const { data, error } = await supabase.functions.invoke('analyze-document', {
-          body: { url: cleanUrl },
+          body: { url: cleanUrl, model: modelPrefs.document_analysis },
         });
         if (error) throw error;
         if (data?.error) throw new Error(data.error);
@@ -235,7 +237,7 @@ export default function Learn() {
         body.strictMode = strictMode;
       }
 
-      const { data, error } = await supabase.functions.invoke('generate-mindmap', { body });
+      const { data, error } = await supabase.functions.invoke('generate-mindmap', { body: { ...body, model: modelPrefs.mindmap } });
       if (error) throw error;
       if (data?.error) { toast.error(data.error); return; }
 
@@ -268,7 +270,7 @@ export default function Learn() {
       }
 
       const { data, error } = await supabase.functions.invoke('generate-roadmap', {
-        body,
+        body: { ...body, model: modelPrefs.roadmap },
       });
 
       if (error) throw error;

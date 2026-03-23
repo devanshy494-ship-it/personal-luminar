@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { BookOpen, ArrowLeft, CheckCircle2, Circle, Sparkles, Target, Loader2, ChevronDown, ChevronUp, GraduationCap, Lightbulb, Search, Plus, Layers, ExternalLink, Play, FileText, Dumbbell, Library, Globe, Smartphone, MoreHorizontal, Download, Settings2, Type, GitBranch } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { supabase } from '@/lib/supabase';
+import { useModelPreferences } from '@/hooks/useModelPreferences';
 import { useAuth } from '@/contexts/AuthContext';
 import { toast } from 'sonner';
 import NotionExportDialog from '@/components/NotionExportDialog';
@@ -57,6 +58,7 @@ interface TopicData {
 export default function Roadmap() {
   const { topicId } = useParams();
   const navigate = useNavigate();
+  const modelPrefs = useModelPreferences();
   const { user } = useAuth();
   const [roadmap, setRoadmap] = useState<RoadmapData | null>(null);
   const [topic, setTopic] = useState<TopicData | null>(null);
@@ -132,6 +134,7 @@ export default function Roadmap() {
             stepDescription: step.description,
             ...(minWords ? { minWords: Number(minWords) } : {}),
             ...(maxWords ? { maxWords: Number(maxWords) } : {}),
+            model: modelPrefs.lesson,
           },
         });
         if (error) throw error;
@@ -153,7 +156,7 @@ export default function Roadmap() {
     try {
       const step = roadmap!.steps[stepIndex];
       const { data, error } = await supabase.functions.invoke('generate-flashcards', {
-        body: { topicId, stepIndex, stepTitle: step.title },
+        body: { topicId, stepIndex, stepTitle: step.title, model: modelPrefs.quiz },
       });
       if (error) throw error;
       if (data?.error) { toast.error(data.error); return; }
@@ -174,7 +177,7 @@ export default function Roadmap() {
     try {
       const step = roadmap!.steps[stepIndex];
       const { data, error } = await supabase.functions.invoke('generate-quiz', {
-        body: { topicId, stepIndex, stepTitle: step.title },
+        body: { topicId, stepIndex, stepTitle: step.title, model: modelPrefs.quiz },
       });
       if (error) throw error;
       if (data?.error) { toast.error(data.error); return; }

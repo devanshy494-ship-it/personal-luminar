@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { supabase } from '@/lib/supabase';
+import { useModelPreferences } from '@/hooks/useModelPreferences';
 import { toast } from 'sonner';
 import { useNavigate } from 'react-router-dom';
 import * as pdfjsLib from 'pdfjs-dist';
@@ -79,6 +80,7 @@ interface QuizQuestion {
 }
 
 export default function QuizCreator() {
+  const modelPrefs = useModelPreferences();
   const navigate = useNavigate();
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -132,7 +134,7 @@ export default function QuizCreator() {
         if (isYouTubeUrl(cleanUrl)) {
           setStep('generating');
           const { data, error: fnError } = await supabase.functions.invoke('youtube-quiz', {
-            body: { url: cleanUrl, questionCount: 10 },
+            body: { url: cleanUrl, questionCount: 10, model: modelPrefs.quiz },
           });
           if (fnError) throw fnError;
           if (data?.error) throw new Error(data.error);
@@ -156,7 +158,7 @@ export default function QuizCreator() {
         body.scope = scopeInstructions.trim();
       }
 
-      const { data, error: fnError } = await supabase.functions.invoke('analyze-document', { body });
+      const { data, error: fnError } = await supabase.functions.invoke('analyze-document', { body: { ...body, model: modelPrefs.document_analysis } });
       if (fnError) throw fnError;
       if (data?.error) throw new Error(data.error);
 
@@ -220,7 +222,7 @@ export default function QuizCreator() {
         body.scope = scopeInstructions.trim();
       }
 
-      const { data, error: fnError } = await supabase.functions.invoke('generate-document-quiz', { body });
+      const { data, error: fnError } = await supabase.functions.invoke('generate-document-quiz', { body: { ...body, model: modelPrefs.quiz } });
       if (fnError) throw fnError;
       if (data?.error) throw new Error(data.error);
 
