@@ -10,20 +10,20 @@ const GEMINI_MODELS = [
   { value: 'gemini-2.5-flash-lite', label: 'Gemini 2.5 Flash Lite ⚡ (Fastest)' },
   { value: 'gemini-2.5-flash', label: 'Gemini 2.5 Flash 🔥 (Balanced)' },
   { value: 'gemini-3-flash-preview', label: 'Gemini 3 Flash 💪 (Powerful)' },
-  { value: 'gemini-3.1-flash-lite-preview', label: 'Gemini 3.1 Flash Lite 🚀 (Newest & Efficient)' },
+  { value: 'gemini-3.1-flash-lite', label: 'Gemini 3.1 Flash Lite 🚀 (Newest & Efficient)' },
 ];
 
 const DEFAULT_MODELS = {
   roadmap: 'gemini-2.5-flash',
   mindmap: 'gemini-2.5-flash',
   document_analysis: 'gemini-2.5-flash',
-  lesson: 'gemini-3.1-flash-lite-preview',
-  flashcard: 'gemini-3.1-flash-lite-preview',
-  quiz: 'gemini-3.1-flash-lite-preview',
-  mindmap_expansion: 'gemini-3.1-flash-lite-preview',
-  extra_materials: 'gemini-3.1-flash-lite-preview',
-  youtube_transcript: 'gemini-3.1-flash-lite-preview',
-  suggestions: 'gemini-3.1-flash-lite-preview',
+  lesson: 'gemini-3.1-flash-lite',
+  flashcard: 'gemini-3.1-flash-lite',
+  quiz: 'gemini-3.1-flash-lite',
+  mindmap_expansion: 'gemini-3.1-flash-lite',
+  extra_materials: 'gemini-3.1-flash-lite',
+  youtube_transcript: 'gemini-3.1-flash-lite',
+  suggestions: 'gemini-3.1-flash-lite',
 };
 
 const FEATURE_LABELS: Record<string, string> = {
