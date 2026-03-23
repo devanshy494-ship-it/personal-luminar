@@ -270,6 +270,7 @@ export default function Roadmap() {
           totalSteps: roadmap!.steps.length,
           allSteps,
           generationContext: topicData?.generation_context || null,
+          model: modelPrefs.extra_materials,
         },
       });
       if (error) throw error;
