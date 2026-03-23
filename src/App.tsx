@@ -17,6 +17,7 @@ import MyMindmaps from "./pages/MyMindmaps";
 import MyFlashcards from "./pages/MyFlashcards";
 import MyQuizzes from "./pages/MyQuizzes";
 import Admin from "./pages/Admin";
+import Settings from "./pages/Settings";
 import ResetPassword from "./pages/ResetPassword";
 import NotFound from "./pages/NotFound";
 
@@ -50,6 +51,7 @@ const AppRoutes = () => (
     <Route path="/my-flashcards" element={<ProtectedRoute><MyFlashcards /></ProtectedRoute>} />
     <Route path="/my-quizzes" element={<ProtectedRoute><MyQuizzes /></ProtectedRoute>} />
     <Route path="/admin" element={<ProtectedRoute><Admin /></ProtectedRoute>} />
+    <Route path="/settings" element={<ProtectedRoute><Settings /></ProtectedRoute>} />
     {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
     <Route path="*" element={<NotFound />} />
   </Routes>
