@@ -73,7 +73,7 @@ export default function Settings() {
           user_id: user.id,
           model_preferences: models,
           updated_at: new Date().toISOString(),
-        });
+        }, { onConflict: 'user_id' });
 
       if (error) throw error;
       toast.success('Settings saved!');
