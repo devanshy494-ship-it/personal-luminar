@@ -18,6 +18,10 @@ export default function ResetPassword() {
 
   useEffect(() => {
     // Check for recovery event from the URL hash
+    const queryParams = new URLSearchParams(window.location.search);
+    if (queryParams.get('code')) {
+      setIsRecovery(true);
+    }
     const hashParams = new URLSearchParams(window.location.hash.substring(1));
     const type = hashParams.get('type');
     if (type === 'recovery') {
