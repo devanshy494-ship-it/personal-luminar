@@ -127,6 +127,11 @@ export default function Roadmap() {
       setLoadingLesson(index);
       try {
         const step = roadmap.steps[index];
+        if (step.savedLesson) {
+  setLessons((prev) => ({ ...prev, [index]: step.savedLesson }));
+  setLoadingLesson(null);
+  return;
+}
         const { data, error } = await supabase.functions.invoke('generate-lesson', {
           body: {
             topicTitle: topic.title,
@@ -140,6 +145,10 @@ export default function Roadmap() {
         if (error) throw error;
         if (data?.error) { toast.error(data.error); return; }
         setLessons((prev) => ({ ...prev, [index]: data }));
+        const updatedSteps = roadmap.steps.map((s, i) =>
+  i === index ? { ...s, savedLesson: data } : s
+);
+await supabase.from('roadmaps').update({ steps: updatedSteps }).eq('id', roadmap.id);
       } catch (e: any) {
         toast.error(e?.message || 'Failed to generate lesson');
         setExpandedStep(null);
@@ -256,6 +265,12 @@ export default function Roadmap() {
     }
     setShowExtraMaterials(stepIndex);
     if (extraMaterials[stepIndex]) return;
+const step = roadmap!.steps[stepIndex];
+if (step.savedExtraMaterials) {
+  setExtraMaterials((prev) => ({ ...prev, [stepIndex]: step.savedExtraMaterials }));
+  setLoadingExtraMaterials(null);
+  return;
+}
     setLoadingExtraMaterials(stepIndex);
     try {
       const step = roadmap!.steps[stepIndex];
@@ -276,6 +291,10 @@ export default function Roadmap() {
       if (error) throw error;
       if (data?.error) { toast.error(data.error); return; }
       setExtraMaterials((prev) => ({ ...prev, [stepIndex]: data }));
+      const updatedSteps = roadmap!.steps.map((s, i) =>
+  i === stepIndex ? { ...s, savedExtraMaterials: data } : s
+);
+await supabase.from('roadmaps').update({ steps: updatedSteps }).eq('id', roadmap!.id);
     } catch (e: any) {
       toast.error(e?.message || 'Failed to fetch extra materials');
       setShowExtraMaterials(null);
