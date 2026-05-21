@@ -22,6 +22,8 @@ interface Step {
   resources?: (string | Resource)[];
   completed: boolean;
   order: number;
+  savedLesson?: LessonData;
+  savedExtraMaterials?: ExtraMaterials;
 }
 
 interface LessonData {
