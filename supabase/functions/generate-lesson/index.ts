@@ -50,6 +50,7 @@ Create a detailed lesson for this step.`;
           contents: [{ parts: [{ text: userPrompt }] }],
           generationConfig: {
             responseMimeType: "application/json",
+            thinkingConfig: { thinkingBudget: 0 },
             responseSchema: {
               type: "object",
               properties: {
