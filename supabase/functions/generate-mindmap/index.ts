@@ -67,6 +67,7 @@ Make it comprehensive and well-organized. Each node should have a concise label 
           contents: [{ parts: [{ text: userContent }] }],
           generationConfig: {
             responseMimeType: "application/json",
+            thinkingConfig: { thinkingBudget: 0 },
             responseSchema: {
               type: "object",
               properties: {

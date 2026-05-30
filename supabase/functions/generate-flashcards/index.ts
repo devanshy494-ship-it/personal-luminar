@@ -85,6 +85,7 @@ serve(async (req) => {
           contents: [{ parts: [{ text: userPrompt }] }],
           generationConfig: {
             responseMimeType: "application/json",
+            thinkingConfig: { thinkingBudget: 0 },
             responseSchema: {
               type: "object",
               properties: {

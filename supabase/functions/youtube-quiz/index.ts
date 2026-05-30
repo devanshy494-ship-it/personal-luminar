@@ -52,6 +52,7 @@ serve(async (req) => {
           contents: [{ parts: [{ text: `Generate exactly ${clamped} quiz questions for testing knowledge about this YouTube video titled: "${title}". Cover key concepts, definitions, facts, and important details.` }] }],
           generationConfig: {
             responseMimeType: "application/json",
+            thinkingConfig: { thinkingBudget: 0 },
             responseSchema: {
               type: "object",
               properties: {

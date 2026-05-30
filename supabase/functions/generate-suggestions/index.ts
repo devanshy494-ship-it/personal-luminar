@@ -71,6 +71,7 @@ If the user has no history, make all 6 suggestions diverse and interesting acros
           contents: [{ parts: [{ text: userHistory }] }],
           generationConfig: {
             responseMimeType: "application/json",
+            thinkingConfig: { thinkingBudget: 0 },
             responseSchema: {
               type: "object",
               properties: {

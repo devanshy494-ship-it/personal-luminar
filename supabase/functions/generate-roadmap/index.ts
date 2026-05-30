@@ -172,6 +172,7 @@ Make the roadmap progressive — each step builds on the previous one.${strictIn
           contents: [{ parts: [{ text: userContent }] }],
           generationConfig: {
             responseMimeType: "application/json",
+            thinkingConfig: { thinkingBudget: 0 },
             responseSchema: {
               type: "object",
               properties: {

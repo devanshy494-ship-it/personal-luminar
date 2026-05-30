@@ -95,6 +95,7 @@ Provide 3-5 items per category. Only include resources that are genuinely releva
           contents: [{ parts: [{ text: userPrompt }] }],
           generationConfig: {
             responseMimeType: "application/json",
+            thinkingConfig: { thinkingBudget: 0 },
             responseSchema: {
               type: "object",
               properties: {

@@ -59,6 +59,7 @@ serve(async (req) => {
           contents: [{ parts: [{ text: `Analyze this content and identify topics/subtopics for flashcard generation:\n\n${truncated}` }] }],
           generationConfig: {
             responseMimeType: "application/json",
+            thinkingConfig: { thinkingBudget: 0 },
             responseSchema: {
               type: "object",
               properties: {

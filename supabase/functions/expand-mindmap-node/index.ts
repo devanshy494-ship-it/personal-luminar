@@ -36,6 +36,7 @@ Each sub-topic should be a meaningful expansion of the node, providing deeper in
           contents: [{ parts: [{ text: `Expand this mind map node into sub-topics: "${nodeLabel}"` }] }],
           generationConfig: {
             responseMimeType: "application/json",
+            thinkingConfig: { thinkingBudget: 0 },
             responseSchema: {
               type: "object",
               properties: {

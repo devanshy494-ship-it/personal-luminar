@@ -76,6 +76,7 @@ serve(async (req) => {
           contents: [{ parts: [{ text: `Generate ${totalCards} flashcards from this content:\n\n${truncated}` }] }],
           generationConfig: {
             responseMimeType: "application/json",
+            thinkingConfig: { thinkingBudget: 0 },
             responseSchema: {
               type: "object",
               properties: {

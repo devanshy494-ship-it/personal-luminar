@@ -61,6 +61,7 @@ serve(async (req) => {
           contents: [{ parts: [{ text: `Generate ${totalQuestions} quiz questions from this content:\n\n${truncated}` }] }],
           generationConfig: {
             responseMimeType: "application/json",
+            thinkingConfig: { thinkingBudget: 0 },
             responseSchema: {
               type: "object",
               properties: {

@@ -59,6 +59,7 @@ serve(async (req) => {
           contents: [{ parts: [{ text: `Create a quiz about: ${subject}` }] }],
           generationConfig: {
             responseMimeType: "application/json",
+            thinkingConfig: { thinkingBudget: 0 },
             responseSchema: {
               type: "object",
               properties: {

@@ -91,6 +91,7 @@ serve(async (req) => {
           contents: [{ parts: [{ text: `Generate exactly ${clampedCount} flashcards for studying the topic from this YouTube video titled: "${title}". Cover the key concepts, definitions, facts, and important details that would typically be covered in a video about this subject.` }] }],
           generationConfig: {
             responseMimeType: "application/json",
+            thinkingConfig: { thinkingBudget: 0 },
             responseSchema: {
               type: "object",
               properties: {
